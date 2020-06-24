@@ -1,0 +1,39 @@
+@host = http://localhost:3000
+
+GET {{host}}/items
+
+###
+GET {{host}}/items/2
+
+###
+POST {{host}}/items
+Content-Type: application/json
+
+{
+  "item": {
+    "name": "Salad",
+    "price": 4.99,
+    "description": "Fresh",
+    "image": "https://cdn.auth0.com/blog/whatabyte/salad-sm.png"
+  }
+}
+
+###
+PUT {{host}}/items
+Content-Type: application/json
+
+{
+  "item": {
+    "id": 1592859848695,
+    "name": "Salad",
+    "price": 4.99,
+    "description": "Fresh",
+    "image": "https://cdn.auth0.com/blog/whatabyte/salad-sm.png"
+  }
+}
+
+###
+DELETE {{host}}/items/2
+
+###
+GET {{host}}/employees
