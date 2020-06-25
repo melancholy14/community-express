@@ -55,17 +55,17 @@ postRouter.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// postRouter.delete('/:id', async (req: Request, res: Response) => {
-//   try {
-//     const id: number = parseInt(req.params.id);
+postRouter.delete('/:id', async (req: Request, res: Response) => {
+  try {
+    const id: string = req.params.id;
 
-//     await ItemService.remove(id);
+    await PostService.remove(id);
 
-//     res.sendStatus(200);
-//   } catch (e) {
-//     res.status(500).send(e.message);
-//   }
-// })
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+})
 
 postRouter.get('/:id/comment', async (req: Request, res: Response) => {
   try {
@@ -95,14 +95,28 @@ postRouter.post('/:id/comment', async (req: Request, res: Response) => {
 
 postRouter.put('/:id/comment/:commentId', async (req: Request, res: Response) => {
   try {
-    const id = req.params.commentId;
+    const id = req.params.id;
+    const commentId = req.params.commentId;
 
     const comment: Comment = req.body;
 
-    const updated: Comment = await CommentService.update(id, comment);
+    const updated: Comment = await CommentService.update(id, commentId, comment);
 
     res.status(200).send(updated);
   } catch (e) {
     res.status(500).send(e.message);
   }
 });
+
+postRouter.delete('/:id/comment/:commentId', async (req: Request, res: Response) => {
+  try {
+    const id: string = req.params.id;
+    const commentId = req.params.commentId;
+
+    await CommentService.remove(id, commentId);
+
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+})

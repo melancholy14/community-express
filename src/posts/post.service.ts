@@ -69,6 +69,14 @@ export const find = async (postId: string): Promise<Post> => {
 };
 
 export const create = async (post: Post): Promise<Post> => {
+  if (!post.title || !post.content) {
+    throw new Error('No title or content to create a new post');
+  }
+
+  if (!post.author) {
+    throw new Error('No author to create a new post');
+  }
+
   const newPost = {
     ...post,
     id: uuidv4(),
@@ -81,6 +89,10 @@ export const create = async (post: Post): Promise<Post> => {
 };
 
 export const update = async (postId: string, post: Post): Promise<Post> => {
+  if (!post.title || !post.content) {
+    throw new Error('No title or content to update the post');
+  }
+
   const postIndex = posts.findIndex(({ id }) => id === postId);
 
   if (postIndex > -1) {
@@ -94,12 +106,13 @@ export const update = async (postId: string, post: Post): Promise<Post> => {
   throw new Error("No post found to update");
 };
 
-// export const remove = async (postId: string): Promise<void> => {
-//   const postIndex = posts.findIndex(({ id }) => id === postId);
+export const remove = async (postId: string): Promise<void> => {
+  const postIndex = posts.findIndex(({ id }) => id === postId);
 
-//   if (postIndex > -1) {
-//     posts.slice(postIndex, 1);
-//   }
+  if (postIndex > -1) {
+    posts.splice(postIndex, 1);
+    return;
+  }
 
-//   throw new Error("No post found to delete");
-// };
+  throw new Error("No post found to delete");
+};
