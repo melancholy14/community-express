@@ -6,4 +6,4 @@ export type Post = {
   author: Partial<User>;
   created: Date;
   content: string;
-}
+};

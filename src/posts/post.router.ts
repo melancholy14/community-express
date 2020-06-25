@@ -46,9 +46,9 @@ postRouter.put('/:id', async (req: Request, res: Response) => {
     const id: string = req.params.id;
 
     const post: Post = req.body;
-    
+
     const updated = await PostService.update(id, post);
-  
+
     res.status(200).send(updated);
   } catch (e) {
     res.status(500).send(e.message);
@@ -65,7 +65,7 @@ postRouter.delete('/:id', async (req: Request, res: Response) => {
   } catch (e) {
     res.status(500).send(e.message);
   }
-})
+});
 
 postRouter.get('/:id/comment', async (req: Request, res: Response) => {
   try {
@@ -93,30 +93,40 @@ postRouter.post('/:id/comment', async (req: Request, res: Response) => {
   }
 });
 
-postRouter.put('/:id/comment/:commentId', async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const commentId = req.params.commentId;
+postRouter.put(
+  '/:id/comment/:commentId',
+  async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const commentId = req.params.commentId;
 
-    const comment: Comment = req.body;
+      const comment: Comment = req.body;
 
-    const updated: Comment = await CommentService.update(id, commentId, comment);
+      const updated: Comment = await CommentService.update(
+        id,
+        commentId,
+        comment
+      );
 
-    res.status(200).send(updated);
-  } catch (e) {
-    res.status(500).send(e.message);
+      res.status(200).send(updated);
+    } catch (e) {
+      res.status(500).send(e.message);
+    }
   }
-});
+);
 
-postRouter.delete('/:id/comment/:commentId', async (req: Request, res: Response) => {
-  try {
-    const id: string = req.params.id;
-    const commentId = req.params.commentId;
+postRouter.delete(
+  '/:id/comment/:commentId',
+  async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.id;
+      const commentId = req.params.commentId;
 
-    await CommentService.remove(id, commentId);
+      await CommentService.remove(id, commentId);
 
-    res.sendStatus(200);
-  } catch (e) {
-    res.status(500).send(e.message);
+      res.sendStatus(200);
+    } catch (e) {
+      res.status(500).send(e.message);
+    }
   }
-})
+);

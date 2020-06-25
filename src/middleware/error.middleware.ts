@@ -1,5 +1,5 @@
-import HttpException from '../common/http-exception';
 import { Request, Response, NextFunction } from 'express';
+import HttpException from '../common/http-exception';
 
 export const errorHandler = (
   error: HttpException,
@@ -8,7 +8,8 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   const status = error.statusCode || 500;
-  const message = error.message || "It is not you. It is use. We are having some problems.";
+  const message =
+    error.message || 'It is not you. It is use. We are having some problems.';
 
   response.status(status).send(message);
-}
+};

@@ -20,9 +20,9 @@ userRouter.post('/signup', async (req: Request, res: Response) => {
 userRouter.post('/login', async (req: Request, res: Response) => {
   try {
     const authorization: string = req.headers.authorization || '';
-    
+
     const user = await UserService.login(authorization);
-  
+
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send(e.message);

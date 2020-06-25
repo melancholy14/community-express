@@ -10,7 +10,7 @@ let comments: Comment[] = [
       name: 'User 3',
     },
     created: new Date('2020-06-23'),
-    content: 'Maecenas sed lacus mollis, congue nunc ut, congue risus.'
+    content: 'Maecenas sed lacus mollis, congue nunc ut, congue risus.',
   },
   {
     post: '116583c2-3f81-46fe-a5a1-89e6304597ba',
@@ -20,7 +20,8 @@ let comments: Comment[] = [
       name: 'User 2',
     },
     created: new Date('2020-06-20'),
-    content: 'Aenean feugiat ipsum nunc, sed suscipit felis luctus dictum. Vivamus dignissim, nisi quis consectetur pellentesque, lorem dui imperdiet turpis, quis tristique lorem magna a nisl.'
+    content:
+      'Aenean feugiat ipsum nunc, sed suscipit felis luctus dictum. Vivamus dignissim, nisi quis consectetur pellentesque, lorem dui imperdiet turpis, quis tristique lorem magna a nisl.',
   },
   {
     post: '04f855e3-9fb5-4791-98f6-3da9718d7cb3',
@@ -30,7 +31,7 @@ let comments: Comment[] = [
       name: 'User 2',
     },
     created: new Date('2020-06-21'),
-    content: 'Cras et rhoncus sapien, eu aliquam erat.'
+    content: 'Cras et rhoncus sapien, eu aliquam erat.',
   },
   {
     post: '7247c82e-6e48-4390-93e5-b3359b9e5f6d',
@@ -40,7 +41,8 @@ let comments: Comment[] = [
       name: 'User 3',
     },
     created: new Date('2020-06-22'),
-    content: 'Donec eu posuere lacus. Nam cursus porttitor dui, at fermentum erat egestas vitae.'
+    content:
+      'Donec eu posuere lacus. Nam cursus porttitor dui, at fermentum erat egestas vitae.',
   },
   {
     post: '7247c82e-6e48-4390-93e5-b3359b9e5f6d',
@@ -50,15 +52,18 @@ let comments: Comment[] = [
       name: 'User 1',
     },
     created: new Date('2020-06-23'),
-    content: 'Vestibulum dignissim orci eget felis porttitor dignissim.'
-  }
+    content: 'Vestibulum dignissim orci eget felis porttitor dignissim.',
+  },
 ];
 
 export const findAll = async (postId: string): Promise<Comment[]> => {
   return comments.filter(({ post }) => post === postId);
 };
 
-export const create = async (postId: string, comment: Comment): Promise<Comment> => {
+export const create = async (
+  postId: string,
+  comment: Comment
+): Promise<Comment> => {
   if (!comment.content) {
     throw new Error('No content to create a new comment');
   }
@@ -79,7 +84,11 @@ export const create = async (postId: string, comment: Comment): Promise<Comment>
   return newComment;
 };
 
-export const update = async (postId: string, commentId: string, comment: Comment): Promise<Comment> => {
+export const update = async (
+  postId: string,
+  commentId: string,
+  comment: Comment
+): Promise<Comment> => {
   if (!comment.content) {
     throw new Error('No content to update the comment');
   }
@@ -93,15 +102,18 @@ export const update = async (postId: string, commentId: string, comment: Comment
 
     comments[commentIndex] = {
       ...comments[commentIndex],
-      ...comment
+      ...comment,
     };
     return comments[commentIndex];
   }
 
-  throw new Error("No comment found to update");
+  throw new Error('No comment found to update');
 };
 
-export const remove = async (postId: string, commentId: string): Promise<void> => {
+export const remove = async (
+  postId: string,
+  commentId: string
+): Promise<void> => {
   const commentIndex = comments.findIndex(({ id }) => id === commentId);
 
   if (commentIndex > -1) {
@@ -113,5 +125,5 @@ export const remove = async (postId: string, commentId: string): Promise<void> =
     return;
   }
 
-  throw new Error("No comment found to delete");
+  throw new Error('No comment found to delete');
 };

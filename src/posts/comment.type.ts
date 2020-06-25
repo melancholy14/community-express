@@ -6,4 +6,4 @@ export type Comment = {
   author: Partial<User>;
   created: Date;
   content: string;
-}
+};
