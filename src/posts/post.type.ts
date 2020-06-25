@@ -1,4 +1,4 @@
-import { User } from '../users/user.interface';
+import { User } from '../users/user.type';
 
 export type Post = {
   id: string;
