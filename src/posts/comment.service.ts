@@ -59,6 +59,14 @@ export const findAll = async (postId: string): Promise<Comment[]> => {
 };
 
 export const create = async (postId: string, comment: Comment): Promise<Comment> => {
+  if (!comment.content) {
+    throw new Error('No content to create a new comment');
+  }
+
+  if (!comment.author) {
+    throw new Error('No author to create a new comment');
+  }
+
   const newComment = {
     ...comment,
     id: uuidv4(),
@@ -71,10 +79,18 @@ export const create = async (postId: string, comment: Comment): Promise<Comment>
   return newComment;
 };
 
-export const update = async (commentId: string, comment: Comment): Promise<Comment> => {
+export const update = async (postId: string, commentId: string, comment: Comment): Promise<Comment> => {
+  if (!comment.content) {
+    throw new Error('No content to update the comment');
+  }
+
   const commentIndex = comments.findIndex(({ id }) => id === commentId);
 
   if (commentIndex > -1) {
+    if (comments[commentIndex].post !== postId) {
+      throw new Error('No comment found on this post');
+    }
+
     comments[commentIndex] = {
       ...comments[commentIndex],
       ...comment
@@ -85,12 +101,17 @@ export const update = async (commentId: string, comment: Comment): Promise<Comme
   throw new Error("No comment found to update");
 };
 
-// export const remove = async (postId: string): Promise<void> => {
-//   const postIndex = posts.findIndex(({ id }) => id === postId);
+export const remove = async (postId: string, commentId: string): Promise<void> => {
+  const commentIndex = comments.findIndex(({ id }) => id === commentId);
 
-//   if (postIndex > -1) {
-//     posts.slice(postIndex, 1);
-//   }
+  if (commentIndex > -1) {
+    if (comments[commentIndex].post !== postId) {
+      throw new Error('No comment found on this post');
+    }
 
-//   throw new Error("No post found to delete");
-// };
+    comments.splice(commentIndex, 1);
+    return;
+  }
+
+  throw new Error("No comment found to delete");
+};

@@ -21,19 +21,32 @@ let users: User[] = [
 ];
 
 export const signup = async (user: User): Promise<Partial<User>> => {
-  const { password, ...rest } = user;
+  const { password, id, name } = user;
+
+  if (!id || !name || !password ) {
+    throw new Error('No ID, name, or password to create a new account');
+  }
+
   const newUser = {
-    ...rest,
-    password: Base64.encode(`${rest.id}:${password}`),
+    id,
+    name,
+    password: Base64.encode(`${id}:${password}`),
   };
 
   users = [...users, newUser];
 
-  return rest;
+  return {
+    id,
+    name,
+  };
 };
 
 export const login = async (authorization: string): Promise<Partial<User>> => {
   const userString = authorization.replace('Basic ', '');
+
+  if (!userString) {
+    throw new Error('No ID or password to login');
+  }
 
   const user = users.find(({ password }) => password === userString);
   

@@ -63,3 +63,11 @@ Content-Type: application/json
     "content": "Vivamus id arcu vel erat feugiat convallis."
   }
 }
+
+###
+DELETE {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de
+Content-Type: application/json
+
+###
+DELETE {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba/comment/b4f7cb23-b304-46db-9a87-ea0dd9a61438
+Content-Type: application/json
