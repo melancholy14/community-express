@@ -1,39 +1,65 @@
-@host = http://localhost:3000
+@host = http://localhost:8080
 
-GET {{host}}/items
-
-###
-GET {{host}}/items/2
+GET {{host}}/post
 
 ###
-POST {{host}}/items
+GET {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba
+
+###
+POST {{host}}/post
 Content-Type: application/json
 
 {
-  "item": {
-    "name": "Salad",
-    "price": 4.99,
-    "description": "Fresh",
-    "image": "https://cdn.auth0.com/blog/whatabyte/salad-sm.png"
+  "data": {
+    "title": "Quisque accumsan dui id nisl tincidunt",
+    "author": {
+      "id": "user3",
+      "name": "User 3"
+    },
+    "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
   }
 }
 
 ###
-PUT {{host}}/items
+PUT {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba
 Content-Type: application/json
 
 {
-  "item": {
-    "id": 1592859848695,
-    "name": "Salad",
-    "price": 4.99,
-    "description": "Fresh",
-    "image": "https://cdn.auth0.com/blog/whatabyte/salad-sm.png"
+  "data": {
+    "id": "116583c2-3f81-46fe-a5a1-89e6304597ba",
+    "title": "Vivamus",
+    "content": "Vivamus id arcu vel erat feugiat convallis."
   }
 }
 
 ###
-DELETE {{host}}/items/2
+GET {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment
 
 ###
-GET {{host}}/employees
+POST {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment
+Content-Type: application/json
+
+{
+  "data": {
+    "author": {
+      "id": "user3",
+      "name": "User 3"
+    },
+    "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
+  }
+}
+
+###
+PUT {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment/0a12565a-9dd8-454e-aed6-960040c44dc4
+Content-Type: application/json
+
+{
+  "data": {
+    "id": "0a12565a-9dd8-454e-aed6-960040c44dc4",
+    "author": {
+      "id": "user3",
+      "name": "User 3"
+    },
+    "content": "Vivamus id arcu vel erat feugiat convallis."
+  }
+}
