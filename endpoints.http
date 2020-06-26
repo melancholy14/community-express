@@ -1,73 +1,69 @@
 @host = http://localhost:8080
 
+@postId = {{posts.response.body.$[0].id}}
+
+@commentId = {{comments.response.body.$[0].id}}
+
+# @name posts
 GET {{host}}/post
 
 ###
-GET {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba
+GET {{host}}/post/{{postId}}
 
 ###
 POST {{host}}/post
 Content-Type: application/json
 
 {
-  "data": {
-    "title": "Quisque accumsan dui id nisl tincidunt",
-    "author": {
-      "id": "user3",
-      "name": "User 3"
-    },
-    "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
-  }
+  "title": "Quisque accumsan dui id nisl tincidunt",
+  "author": {
+    "id": "user3",
+    "name": "User 3"
+  },
+  "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
 }
 
 ###
-PUT {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba
+PUT {{host}}/post/{{postId}}
 Content-Type: application/json
 
 {
-  "data": {
-    "id": "116583c2-3f81-46fe-a5a1-89e6304597ba",
-    "title": "Vivamus",
-    "content": "Vivamus id arcu vel erat feugiat convallis."
-  }
+  "title": "Vivamus",
+  "content": "Vivamus id arcu vel erat feugiat convallis."
 }
 
 ###
-GET {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment
+# @name comments
+GET {{host}}/post/{{postId}}/comment
 
 ###
-POST {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment
+POST {{host}}/post/{{postId}}/comment
 Content-Type: application/json
 
 {
-  "data": {
-    "author": {
-      "id": "user3",
-      "name": "User 3"
-    },
-    "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
-  }
+  "author": {
+    "id": "user3",
+    "name": "User 3"
+  },
+  "content": "Quisque accumsan dui id nisl tincidunt, non ultrices risus porttitor."
 }
 
 ###
-PUT {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de/comment/0a12565a-9dd8-454e-aed6-960040c44dc4
+PUT {{host}}/post/{{postId}}/comment/{{commentId}}
 Content-Type: application/json
 
 {
-  "data": {
-    "id": "0a12565a-9dd8-454e-aed6-960040c44dc4",
-    "author": {
-      "id": "user3",
-      "name": "User 3"
-    },
-    "content": "Vivamus id arcu vel erat feugiat convallis."
-  }
+  "author": {
+    "id": "user3",
+    "name": "User 3"
+  },
+  "content": "Vivamus id arcu vel erat feugiat convallis."
 }
 
 ###
-DELETE {{host}}/post/8f7a0014-9efe-46c1-8cbb-8ab12941e7de
+DELETE {{host}}/post/{{postId}}
 Content-Type: application/json
 
 ###
-DELETE {{host}}/post/116583c2-3f81-46fe-a5a1-89e6304597ba/comment/b4f7cb23-b304-46db-9a87-ea0dd9a61438
+DELETE {{host}}/post/{{postId}}/comment/{{commentId}}
 Content-Type: application/json

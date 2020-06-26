@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import HttpException from '../common/http-exception';
 
 export const errorHandler = (
   error: HttpException,
-  request: Request,
+  _request: Request,
   response: Response,
-  next: NextFunction
 ) => {
   const status = error.statusCode || 500;
   const message =
